@@ -1,6 +1,8 @@
+
+
 # Sigma-Delta ADC Modeling and RTL Implementation
 
-A complete behavioral implementation of a Sigma-Delta Analog-to-Digital Converter (ADC) covering MATLAB modeling, digital signal processing, and Verilog RTL design.
+Behavioral MATLAB modeling and Verilog RTL implementation of a Sigma-Delta Analog-to-Digital Converter (ADC), including first-order and second-order Sigma-Delta modulators, digital decimation filters, FFT analysis, and performance evaluation.
 
 ---
 
@@ -18,6 +20,7 @@ A complete behavioral implementation of a Sigma-Delta Analog-to-Digital Converte
 - Complete Digital Decimation Chain
 - Behavioral Verilog RTL Implementation
 - RTL Testbench Verification
+- Waveform Simulation using EDA Playground
 
 ---
 
@@ -25,13 +28,13 @@ A complete behavioral implementation of a Sigma-Delta Analog-to-Digital Converte
 
 Sigma-Delta ADCs achieve high-resolution analog-to-digital conversion using oversampling, noise shaping, and digital filtering.
 
-This project demonstrates the complete design flow of a Sigma-Delta ADC:
+This project demonstrates the complete Sigma-Delta ADC design flow:
 
 - Behavioral modeling in MATLAB
 - Performance analysis using FFT, SNR, and ENOB
 - Digital filtering using CIC and FIR filters
-- Behavioral RTL implementation of the digital processing chain in Verilog
-- Verification using simulation waveforms
+- Behavioral RTL implementation in Verilog
+- Functional verification using simulation waveforms
 
 ---
 
@@ -57,36 +60,18 @@ This project demonstrates the complete design flow of a Sigma-Delta ADC:
 
 ---
 
-# MATLAB Implementation
+# MATLAB Behavioral Modeling
 
-The MATLAB portion of the project includes:
+The MATLAB implementation consists of:
 
 ## First-Order Sigma-Delta Modulator
 
 - Behavioral implementation
+- Difference amplifier
 - Integrator
-- Quantizer
-- 1-bit DAC feedback
-- Time-domain visualization
-
-  #### Full Behavioral Simulation
-
-![First Order Full](images/First_order_full.png)
-
-The figure above shows:
-- Analog input signal
-- Difference amplifier output
-- Integrator output
-- 1-bit Sigma-Delta bitstream
+- 1-bit Quantizer
 - DAC feedback
-
-#### Zoomed View
-
-![First Order Zoom](images/First_order_zoom.png)
-
-The zoomed waveform highlights the modulation process and demonstrates how the bitstream density changes with the input signal.
-
----
+- Time-domain visualization
 
 ---
 
@@ -94,15 +79,20 @@ The zoomed waveform highlights the modulation process and demonstrates how the b
 
 - Two-stage integrator architecture
 - Improved noise shaping
+- Enhanced quantization noise suppression
 - Time-domain analysis
 
 ---
 
 ## FFT Analysis
 
-- Frequency spectrum calculation
-- Identification of signal frequency
-- Observation of quantization noise shaping
+Implemented to evaluate frequency-domain performance.
+
+Features include:
+
+- Signal spectrum
+- Noise floor visualization
+- Signal-to-noise ratio estimation
 
 ---
 
@@ -110,15 +100,13 @@ The zoomed waveform highlights the modulation process and demonstrates how the b
 
 ### Signal-to-Noise Ratio (SNR)
 
-- FFT-based signal power estimation
-- Noise power calculation
-- SNR computation in dB
+Computed using FFT-based signal and noise power estimation.
 
 ### Effective Number of Bits (ENOB)
 
 Calculated using
 
-```
+```text
 ENOB = (SNR - 1.76) / 6.02
 ```
 
@@ -126,9 +114,7 @@ ENOB = (SNR - 1.76) / 6.02
 
 ## DC Linearity Test
 
-- Input sweep
-- Average bitstream calculation
-- Linearity verification
+Implemented using a DC input sweep to verify average output linearity.
 
 ---
 
@@ -136,19 +122,19 @@ ENOB = (SNR - 1.76) / 6.02
 
 ### CIC Filter
 
-Implemented:
+Implemented stages:
 
 - Integrator
 - Decimation
-- Comb stage
+- Comb Filter
 
 ---
 
-### FIR Filter
+### FIR Low-Pass Filter
 
-Implemented:
+Implemented features:
 
-- Moving-average FIR filter
+- 4-tap Moving Average Filter
 - Low-pass smoothing
 - Output reconstruction
 
@@ -156,9 +142,7 @@ Implemented:
 
 ### Complete Decimation Chain
 
-The digital processing chain combines:
-
-```
+```text
 Bitstream
     │
     ▼
@@ -168,45 +152,43 @@ CIC Filter
 FIR Filter
     │
     ▼
-Final Output
+Final Digital Output
 ```
 
 ---
 
 # Verilog RTL Implementation
 
-Behavioral RTL was developed for the complete digital processing chain.
+Behavioral RTL models were developed for all major digital blocks.
 
-## First-Order RTL
+## First-Order Sigma-Delta Modulator
 
-- First-order Sigma-Delta Modulator
+- RTL implementation
 - Testbench
 - Waveform verification
 
 ---
 
-## Second-Order RTL
+## Second-Order Sigma-Delta Modulator
 
-- Second-order Sigma-Delta Modulator
+- RTL implementation
 - Testbench
 - Waveform verification
 
 ---
 
-## Digital Filters
+## CIC Filter
 
-### CIC Filter
-
-- Integrator
-- Decimator
+- Integrator stage
 - Comb stage
+- Decimation
 - Testbench
 
 ---
 
-### FIR Filter
+## FIR Filter
 
-- 4-tap moving-average FIR filter
+- 4-tap Moving Average FIR Filter
 - Testbench
 
 ---
@@ -215,13 +197,83 @@ Behavioral RTL was developed for the complete digital processing chain.
 
 - CIC Filter instantiation
 - FIR Filter instantiation
-- Complete signal flow verification
+- Complete digital signal flow verification
+
+---
+
+# Simulation Results
+
+## First-Order Sigma-Delta Modulator
+
+### Full Behavioral Simulation
+
+![First Order Full](images/First_order_full.png)
+
+The simulation illustrates:
+
+- Analog input waveform
+- Difference amplifier output
+- Integrator response
+- 1-bit Sigma-Delta bitstream
+- DAC feedback signal
+
+---
+
+### Zoomed View
+
+![First Order Zoom](images/First_order_zoom.png)
+
+The zoomed waveform demonstrates how the density of the output bitstream follows the input amplitude.
+
+---
+
+## Second-Order Sigma-Delta Modulator
+
+*(Add second-order behavioral simulation screenshots here.)*
+
+---
+
+## FFT Spectrum
+
+*(Add FFT spectrum screenshot here.)*
+
+---
+
+## RTL Simulation Results
+
+### First-Order Modulator
+
+*(Add EPWave screenshot)*
+
+---
+
+### Second-Order Modulator
+
+*(Add EPWave screenshot)*
+
+---
+
+### CIC Filter
+
+*(Add EPWave screenshot)*
+
+---
+
+### FIR Filter
+
+*(Add EPWave screenshot)*
+
+---
+
+### Complete Decimation Chain
+
+*(Add EPWave screenshot)*
 
 ---
 
 # Repository Structure
 
-```
+```text
 sigma-delta-adc/
 
 ├── matlab/
@@ -236,22 +288,10 @@ sigma-delta-adc/
 │   ├── second_order/
 │   └── filters/
 │
+├── images/
+│
 └── README.md
 ```
-
----
-
-# Simulation Results
-
-Behavioral verification was performed for:
-
-- First-order Sigma-Delta Modulator
-- Second-order Sigma-Delta Modulator
-- CIC Filter
-- FIR Filter
-- Complete Decimation Chain
-
-Waveform simulations were carried out using EDA Playground.
 
 ---
 
@@ -266,12 +306,13 @@ Waveform simulations were carried out using EDA Playground.
 
 # Concepts Covered
 
+- Sigma-Delta Modulation
 - Oversampling
 - Noise Shaping
 - Quantization
-- FFT
-- SNR
-- ENOB
+- FFT Analysis
+- Signal-to-Noise Ratio (SNR)
+- Effective Number of Bits (ENOB)
 - CIC Filtering
 - FIR Filtering
 - Decimation
@@ -283,11 +324,12 @@ Waveform simulations were carried out using EDA Playground.
 
 # Future Improvements
 
-Possible extensions include:
+Possible future extensions include:
 
 - Fixed-point arithmetic optimization
 - Higher-order Sigma-Delta modulators
-- Parameterizable filter architecture
+- Parameterizable Oversampling Ratio (OSR)
+- Parameterizable digital filter architecture
 - FPGA synthesis and hardware validation
 - Power and area optimization
 
@@ -305,4 +347,5 @@ Indian Institute of Technology Gandhinagar
 
 # License
 
+This project is intended for educational and learning purposes.
 This project is intended for educational and learning purposes.
