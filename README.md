@@ -71,7 +71,7 @@ The MATLAB portion of the project includes:
 
   #### Full Behavioral Simulation
 
-![First Order Full](images/first_order_full.png)
+![First Order Full](images/First_order_full.png)
 
 The figure above shows:
 - Analog input signal
@@ -82,7 +82,7 @@ The figure above shows:
 
 #### Zoomed View
 
-![First Order Zoom](images/first_order_zoom.png)
+![First Order Zoom](images/First_order_zoom.png)
 
 The zoomed waveform highlights the modulation process and demonstrates how the bitstream density changes with the input signal.
 
