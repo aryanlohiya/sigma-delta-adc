@@ -204,7 +204,7 @@ Implemented:
 - Behavioral testbench
 - Functional verification
 
-![First Order RTL](images/first_order_rtl.png)
+![First Order RTL](images/first_order_rt1.png)
 
 ---
 
