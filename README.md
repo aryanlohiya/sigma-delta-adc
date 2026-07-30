@@ -1,8 +1,7 @@
 
-
 # Sigma-Delta ADC Modeling and RTL Implementation
 
-Behavioral MATLAB modeling and Verilog RTL implementation of a Sigma-Delta Analog-to-Digital Converter (ADC), including first-order and second-order Sigma-Delta modulators, digital decimation filters, FFT analysis, and performance evaluation.
+A complete behavioral implementation of a Sigma-Delta Analog-to-Digital Converter (ADC) covering MATLAB modeling, digital signal processing, and Verilog RTL design.
 
 ---
 
@@ -20,7 +19,6 @@ Behavioral MATLAB modeling and Verilog RTL implementation of a Sigma-Delta Analo
 - Complete Digital Decimation Chain
 - Behavioral Verilog RTL Implementation
 - RTL Testbench Verification
-- Waveform Simulation using EDA Playground
 
 ---
 
@@ -60,39 +58,76 @@ This project demonstrates the complete Sigma-Delta ADC design flow:
 
 ---
 
-# MATLAB Behavioral Modeling
+# MATLAB Implementation
 
-The MATLAB implementation consists of:
+The MATLAB portion of the project includes behavioral modeling and performance evaluation of Sigma-Delta ADCs.
+
+---
 
 ## First-Order Sigma-Delta Modulator
 
-- Behavioral implementation
+Implemented:
+
 - Difference amplifier
 - Integrator
 - 1-bit Quantizer
 - DAC feedback
-- Time-domain visualization
+- Time-domain analysis
+
+### Full Behavioral Simulation
+
+![First Order Full](images/First_order_full.png)
+
+The simulation illustrates:
+
+- Analog input waveform
+- Difference amplifier output
+- Integrator response
+- 1-bit Sigma-Delta bitstream
+
+### Zoomed View
+
+![First Order Zoom](images/First_order_zoom.png)
+
+The zoomed waveform clearly shows the pulse-density modulation process, where the density of 1s and 0s tracks the instantaneous analog input.
 
 ---
 
 ## Second-Order Sigma-Delta Modulator
 
-- Two-stage integrator architecture
+Implemented:
+
+- Cascaded integrator architecture
 - Improved noise shaping
-- Enhanced quantization noise suppression
+- 1-bit quantizer
+- DAC feedback
 - Time-domain analysis
+
+### Full Behavioral Simulation
+
+![Second Order Full](images/Second_order_full.png)
+
+The second-order architecture demonstrates enhanced noise shaping through the use of two cascaded integrators.
+
+### Zoomed View
+
+![Second Order Zoom](images/Second_order_zoom.png)
+
+The zoomed waveform highlights the operation of both integrators and the corresponding Sigma-Delta bitstream.
 
 ---
 
-## FFT Analysis
+## FFT Spectrum Analysis
 
-Implemented to evaluate frequency-domain performance.
+FFT analysis was performed on the generated Sigma-Delta bitstream to observe spectral characteristics and quantization noise distribution.
 
-Features include:
+![FFT Analysis](images/FFT_analysis.png)
 
-- Signal spectrum
-- Noise floor visualization
-- Signal-to-noise ratio estimation
+The FFT demonstrates:
+
+- Signal frequency component
+- Quantization noise distribution
+- Noise shaping behavior of the Sigma-Delta modulator
 
 ---
 
@@ -106,7 +141,7 @@ Computed using FFT-based signal and noise power estimation.
 
 Calculated using
 
-```text
+```
 ENOB = (SNR - 1.76) / 6.02
 ```
 
@@ -114,7 +149,7 @@ ENOB = (SNR - 1.76) / 6.02
 
 ## DC Linearity Test
 
-Implemented using a DC input sweep to verify average output linearity.
+The ADC was verified using constant DC input levels to evaluate average bitstream output and linearity.
 
 ---
 
@@ -122,27 +157,25 @@ Implemented using a DC input sweep to verify average output linearity.
 
 ### CIC Filter
 
-Implemented stages:
+Implemented:
 
-- Integrator
-- Decimation
-- Comb Filter
+- Integrator stage
+- Decimator
+- Comb stage
 
----
+### FIR Filter
 
-### FIR Low-Pass Filter
+Implemented:
 
-Implemented features:
-
-- 4-tap Moving Average Filter
+- Moving-average FIR filter
 - Low-pass smoothing
 - Output reconstruction
 
----
-
 ### Complete Decimation Chain
 
-```text
+The digital processing chain combines
+
+```
 Bitstream
     │
     ▼
@@ -159,143 +192,55 @@ Final Digital Output
 
 # Verilog RTL Implementation
 
-Behavioral RTL models were developed for all major digital blocks.
-
-## First-Order Sigma-Delta Modulator
-
-- RTL implementation
-- Testbench
-- Waveform verification
+Behavioral RTL was developed for the complete digital processing chain.
 
 ---
 
-## Second-Order Sigma-Delta Modulator
+## First-Order Sigma-Delta RTL
 
-- RTL implementation
-- Testbench
-- Waveform verification
+Implemented:
 
----
+- First-order Sigma-Delta modulator
+- Behavioral testbench
+- Functional verification
 
-## CIC Filter
-
-- Integrator stage
-- Comb stage
-- Decimation
-- Testbench
+![First Order RTL](images/first_order_rtl.png)
 
 ---
 
-## FIR Filter
+## Second-Order Sigma-Delta RTL
 
-- 4-tap Moving Average FIR Filter
-- Testbench
+Implemented:
 
----
+- Second-order Sigma-Delta modulator
+- Behavioral testbench
+- Functional verification
 
-## Top-Level Decimation Chain
-
-- CIC Filter instantiation
-- FIR Filter instantiation
-- Complete digital signal flow verification
+![Second Order RTL](images/second_order_rtl.png)
 
 ---
 
-# Simulation Results
+## CIC Filter RTL
 
-## First-Order Sigma-Delta Modulator
+Behavioral RTL implementation of the Cascaded Integrator-Comb (CIC) filter.
 
-### Full Behavioral Simulation
-
-![First Order Full](images/First_order_full.png)
-
-The simulation illustrates:
-
-- Analog input waveform
-- Difference amplifier output
-- Integrator response
-- 1-bit Sigma-Delta bitstream
-
+![CIC Filter RTL](images/cic_filter.png)
 
 ---
 
-### Zoomed View
+## FIR Filter RTL
 
-![First Order Zoom](images/First_order_zoom.png)
+Behavioral RTL implementation of a moving-average FIR low-pass filter.
 
-The zoomed waveform demonstrates how the density of the output bitstream follows the input amplitude.
-
----
-
-## Second-Order Sigma-Delta Modulator
-
-
-
-### Full Behavioral Simulation
-
-![Second Order Full](images/Second_order_full.png)
-
-The full waveform illustrates the operation of the second-order Sigma-Delta modulator over one complete input cycle. The additional integrator stage provides improved noise shaping compared to the first-order architecture.
-
-### Zoomed View
-
-![Second Order Zoom](images/Second_order_zoom.png)
-
-The zoomed waveform highlights the internal operation of the second-order modulator, including:
-
-- Analog input signal
-- First integrator output
-- Second integrator output
-- 1-bit Sigma-Delta bitstream
-- DAC feedback signal
-
-The increased bitstream density follows the input amplitude, while the cascaded integrators provide stronger quantization noise shaping.
-
-## FFT Analysis
-
-The frequency-domain response of the Sigma-Delta modulator is analyzed using the Fast Fourier Transform (FFT) of the generated 1-bit bitstream.
-
-### FFT Spectrum
-
-![FFT Spectrum](images/FFT_analysis.png)
-
-The FFT spectrum demonstrates the fundamental principle of Sigma-Delta modulation:
-
-- Quantization noise is shaped toward higher frequencies.
-- The low-frequency region contains relatively less noise, preserving the desired signal.
-- Oversampling combined with digital decimation filtering enables high-resolution analog-to-digital conversion by removing the high-frequency quantization noise.
+![FIR Filter RTL](images/fir_filter.png)
 
 ---
 
-## RTL Simulation Results
+## Complete Decimation Chain RTL
 
-### First-Order Modulator
+Integration of the CIC and FIR filters to produce the final decimated digital output.
 
-*(Add EPWave screenshot)*
-
----
-
-### Second-Order Modulator
-
-*(Add EPWave screenshot)*
-
----
-
-### CIC Filter
-
-*(Add EPWave screenshot)*
-
----
-
-### FIR Filter
-
-*(Add EPWave screenshot)*
-
----
-
-### Complete Decimation Chain
-
-*(Add EPWave screenshot)*
+![Decimation Chain RTL](images/decimation.png)
 
 ---
 
@@ -305,13 +250,11 @@ The FFT spectrum demonstrates the fundamental principle of Sigma-Delta modulatio
 sigma-delta-adc/
 
 ├── matlab/
-│
 │   ├── first_order/
 │   ├── second_order/
 │   └── filters/
 │
 ├── verilog/
-│
 │   ├── first_order/
 │   ├── second_order/
 │   └── filters/
@@ -320,6 +263,24 @@ sigma-delta-adc/
 │
 └── README.md
 ```
+
+---
+
+# Results Summary
+
+| Module | Status |
+|---------|--------|
+| MATLAB First-Order Sigma-Delta Modulator | ✅ Verified |
+| MATLAB Second-Order Sigma-Delta Modulator | ✅ Verified |
+| FFT Analysis | ✅ Completed |
+| SNR Estimation | ✅ Completed |
+| ENOB Calculation | ✅ Completed |
+| DC Linearity Test | ✅ Completed |
+| CIC Filter | ✅ Verified |
+| FIR Filter | ✅ Verified |
+| Complete Decimation Chain | ✅ Verified |
+| Verilog RTL Implementation | ✅ Verified |
+| RTL Testbenches | ✅ Completed |
 
 ---
 
@@ -334,11 +295,10 @@ sigma-delta-adc/
 
 # Concepts Covered
 
-- Sigma-Delta Modulation
 - Oversampling
 - Noise Shaping
 - Quantization
-- FFT Analysis
+- FFT
 - Signal-to-Noise Ratio (SNR)
 - Effective Number of Bits (ENOB)
 - CIC Filtering
@@ -346,19 +306,19 @@ sigma-delta-adc/
 - Decimation
 - Digital Signal Processing
 - Verilog RTL Design
-- Digital System Verification
+- Hardware Verification
 
 ---
 
 # Future Improvements
 
-Possible future extensions include:
+Possible extensions include:
 
-- Fixed-point arithmetic optimization
 - Higher-order Sigma-Delta modulators
-- Parameterizable Oversampling Ratio (OSR)
-- Parameterizable digital filter architecture
-- FPGA synthesis and hardware validation
+- Fixed-point arithmetic optimization
+- Parameterizable digital filter architectures
+- FPGA implementation
+- Hardware validation
 - Power and area optimization
 
 ---
@@ -375,5 +335,4 @@ Indian Institute of Technology Gandhinagar
 
 # License
 
-This project is intended for educational and learning purposes.
 This project is intended for educational and learning purposes.
