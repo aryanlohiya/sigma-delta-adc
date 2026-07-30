@@ -251,9 +251,19 @@ The zoomed waveform highlights the internal operation of the second-order modula
 
 The increased bitstream density follows the input amplitude, while the cascaded integrators provide stronger quantization noise shaping.
 
-## FFT Spectrum
+## FFT Analysis
 
-*(Add FFT spectrum screenshot here.)*
+The frequency-domain response of the Sigma-Delta modulator is analyzed using the Fast Fourier Transform (FFT) of the generated 1-bit bitstream.
+
+### FFT Spectrum
+
+![FFT Spectrum](images/FFT_analysis.png)
+
+The FFT spectrum demonstrates the fundamental principle of Sigma-Delta modulation:
+
+- Quantization noise is shaped toward higher frequencies.
+- The low-frequency region contains relatively less noise, preserving the desired signal.
+- Oversampling combined with digital decimation filtering enables high-resolution analog-to-digital conversion by removing the high-frequency quantization noise.
 
 ---
 
