@@ -235,13 +235,21 @@ The zoomed waveform demonstrates how the density of the output bitstream follows
 
 ![Second Order Full](images/Second_order_full.png)
 
-The simulation illustrates:
+The full waveform illustrates the operation of the second-order Sigma-Delta modulator over one complete input cycle. The additional integrator stage provides improved noise shaping compared to the first-order architecture.
 
-- Analog input waveform
-- First integrator response
-- Second integrator response
+### Zoomed View
+
+![Second Order Zoom](images/Second_order_zoom.png)
+
+The zoomed waveform highlights the internal operation of the second-order modulator, including:
+
+- Analog input signal
+- First integrator output
+- Second integrator output
 - 1-bit Sigma-Delta bitstream
 - DAC feedback signal
+
+The increased bitstream density follows the input amplitude, while the cascaded integrators provide stronger quantization noise shaping.
 
 ## FFT Spectrum
 
