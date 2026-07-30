@@ -215,7 +215,7 @@ The simulation illustrates:
 - Difference amplifier output
 - Integrator response
 - 1-bit Sigma-Delta bitstream
-- DAC feedback signal
+
 
 ---
 
