@@ -26,9 +26,9 @@ t = (0:N-1)/Fs;
 
 %% Generate Analog Input
 
-%inputSignal = Amplitude * sin(2*pi*Fin*t); ( Remove from comment to get
+inputSignal = Amplitude * sin(2*pi*Fin*t); %( Remove from comment to get
 %analog signal)
-inputSignal = 0.30*ones(1,N); %put in comment before taking analog signal
+%inputSignal = 0.30*ones(1,N); %put in comment before taking analog signal
 
 %% Run First-Order Sigma-Delta Modulator
 
@@ -54,3 +54,6 @@ averageOutput = mean(bitstream);
 fprintf('\n');
 fprintf('Average Bitstream Value : %.4f\n', averageOutput);
 fprintf('Average Analog Input    : %.4f\n', mean(inputSignal));
+%% Calculate SNR
+
+snr = calculate_snr(bitstream, Fs, Fin);

@@ -1,3 +1,4 @@
+%% 
 function [bitstream, integratorHistory, errorHistory, feedbackHistory] = ...
     first_order_modulator(inputSignal)
 %% =========================================================================

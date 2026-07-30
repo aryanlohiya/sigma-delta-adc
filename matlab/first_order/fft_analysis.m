@@ -37,3 +37,8 @@ ylabel('Magnitude (dB)')
 title('FFT of Sigma-Delta Bitstream')
 
 xlim([0 20])
+%% Calculate SNR
+
+snr = calculate_snr(bitstream,Fs,Fin);
+
+fprintf('SNR = %.2f dB\n',snr);
