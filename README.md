@@ -229,9 +229,19 @@ The zoomed waveform demonstrates how the density of the output bitstream follows
 
 ## Second-Order Sigma-Delta Modulator
 
-*(Add second-order behavioral simulation screenshots here.)*
 
----
+
+### Full Behavioral Simulation
+
+![Second Order Full](images/Second_order_full.png)
+
+The simulation illustrates:
+
+- Analog input waveform
+- First integrator response
+- Second integrator response
+- 1-bit Sigma-Delta bitstream
+- DAC feedback signal
 
 ## FFT Spectrum
 
