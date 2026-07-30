@@ -69,6 +69,25 @@ The MATLAB portion of the project includes:
 - 1-bit DAC feedback
 - Time-domain visualization
 
+  #### Full Behavioral Simulation
+
+![First Order Full](images/first_order_full.png)
+
+The figure above shows:
+- Analog input signal
+- Difference amplifier output
+- Integrator output
+- 1-bit Sigma-Delta bitstream
+- DAC feedback
+
+#### Zoomed View
+
+![First Order Zoom](images/first_order_zoom.png)
+
+The zoomed waveform highlights the modulation process and demonstrates how the bitstream density changes with the input signal.
+
+---
+
 ---
 
 ## Second-Order Sigma-Delta Modulator
